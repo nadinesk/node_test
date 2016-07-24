@@ -58,8 +58,12 @@ app.delete("/dictionary-api/:item", function(req, res) {
 })
 
 
-app.listen(3000);
+app.set('port', (process.env.PORT || 3000));
 
-console.log("Express app running on port 3000");
+
 
 module.exports = app;
+
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
