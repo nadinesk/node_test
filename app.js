@@ -2,11 +2,29 @@ var express = require("express");
 var cors = require("cors"); 
 var bodyParser = require("body-parser"); 
 var app = express();
+var request = require('request');
+
+var options = {
+  url: 'https://chronicdata.cdc.gov/api/views/g4ie-h725/rows.json?accessType=DOWNLOAD',
+  
+};
+
+function callback(error, response, body) {
+  if (!error && response.statusCode == 200) {
+    var info = JSON.parse(body);
+    console.log(info.meta.view.columns[1].id + " Stars");
+  //  console.log(info.forks_count + " Forks");
+  }
+}
+
+request(options, callback);
+
+var url="https://api.github.com/users/hackeryou"
 
 
 var healthyItems = [ 
 {
-    item: "sleep", 
+    item: "asdf", 
     info: "get 7-8 hours"
 }, 
 {
@@ -60,7 +78,7 @@ app.delete("/dictionary-api/:item", function(req, res) {
 
 app.set('port', (process.env.PORT || 3000));
 
-
+console.log("Express app running on port 3000");
 
 module.exports = app;
 
